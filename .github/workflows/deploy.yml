@@ -17,9 +17,14 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 0.15.0
+
+      - name: Check folder
+        run: ls -la
+        
+        
       - name: Change to Infrastructure directory
         run: cd Infrastructure
-        
+
       - name: Terraform Init
         run: terraform init
 

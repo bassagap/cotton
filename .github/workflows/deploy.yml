@@ -25,6 +25,11 @@ jobs:
       - name: Change to Infrastructure directory
         run: cd Infrastructure
 
+        
+      - name: Check folder
+        run: ls -la
+
+
       - name: Terraform Init
         run: terraform init
 

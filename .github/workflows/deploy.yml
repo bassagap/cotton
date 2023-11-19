@@ -37,7 +37,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.PRIVATE_KEY }}
 
-      - name: Deploy Flask API to EC2
+      - name: Deploy to EC2
         run: |
           ssh -i ${{ secrets.PRIVATE_KEY }} ec2-user@34.245.182.58 'bash -s' << 'EOF'
             cd /path/on/ec2
@@ -47,6 +47,14 @@ jobs:
             pip install -r requirements.txt
             gunicorn -w 4 -b 0.0.0.0:5000 test-results-hub:app
           EOF
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          TERRAFORM_CLI_PATH: /home/runner/work/_temp/4894ef84-79ed-490f-84d0-7b7669dc01c9
+          SSH_AUTH_SOCK: ${{ env.SSH_AUTH_SOCK }}
+          SSH_AGENT_PID: ${{ env.SSH_AGENT_PID }}
+
 
 
       - name: Terraform Destroy (Optional)
